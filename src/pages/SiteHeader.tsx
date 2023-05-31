@@ -7,37 +7,22 @@ const items: MenuProps['items'] = [
 	{
 		label: 'Home',
 		key: 'homepage',
-		icon: <HomeOutlined />,
 	},
 	{
 		label: 'Choose Pizza',
 		key: 'choosepizza',
-		icon: <AppstoreOutlined />
 	},
 	{
 		label: 'Make custom pizza',
 		key: 'custompizza',
-		icon: <HeartOutlined />
 	},
 	{
 		label: 'Login',
 		key: 'login',
-		icon: <UserOutlined />,
-		children: [
-					{
-						label: 'Log In',
-						key: 'setting:1',
-					},
-					{
-						label: 'Create an account',
-						key: 'setting:2',
-					},
-		],
 	},
 	{
-		label: 'Order',
+		label: 'Your order',
 		key: 'order',
-		icon: <ShoppingCartOutlined />
 	},
 ];
 

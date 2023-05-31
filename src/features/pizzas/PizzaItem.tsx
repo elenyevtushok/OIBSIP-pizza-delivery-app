@@ -21,7 +21,7 @@ export const PizzaItem = ({ pizza }: { pizza: Pizza }) => {
 					</ul>
 				</div>
 			</div>
-			<Link to={`pizza/${pizza._id}`} className="button">I want it
+			<Link to={`pizza/${pizza._id}`} className="add-to-card-button">I want it
 			</Link>
 		</div>
 		// <div className="post-in">
