@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { AppstoreOutlined, HeartOutlined, HomeOutlined, MailOutlined, SettingOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
+import { Link } from 'react-router-dom';
 
 const items: MenuProps['items'] = [
 	{
-		label: 'Home',
+		label: <Link to='/' > Home</Link> ,
 		key: 'homepage',
 	},
 	{
-		label: 'Choose Pizza',
+		label: <Link to='/pizzas' >Choose Pizza</Link>,
 		key: 'choosepizza',
 	},
 	{
-		label: 'Make custom pizza',
+		label: <Link to='/pizza/custom' >Make your Pizza</Link>,
 		key: 'custompizza',
 	},
 	{
@@ -26,8 +26,8 @@ const items: MenuProps['items'] = [
 	},
 ];
 
-const SiteHeader: React.FC = () => {
-	const [current, setCurrent] = useState('homepage');
+const Navbar: React.FC = () => {
+	const [current, setCurrent] = useState('');
 
 	const onClick: MenuProps['onClick'] = (e) => {
 		console.log('click ', e);
@@ -37,4 +37,4 @@ const SiteHeader: React.FC = () => {
 	return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
 };
 
-export default SiteHeader;
+export default Navbar;

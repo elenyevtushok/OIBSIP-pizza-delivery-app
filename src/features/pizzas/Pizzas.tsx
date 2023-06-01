@@ -21,7 +21,11 @@ export const Pizzas = () => {
 
 
 	return (
-		<div>
+		<main>
+			<div className='content-title'>
+				<h1>Try our exclusive pizzas</h1>
+				<p>Swipe to chose and order</p>
+			</div>
 			{
 				(pizzas.length > 0) &&
 				(
@@ -40,6 +44,6 @@ export const Pizzas = () => {
 					
 				)
 			}
-		</div>
+		</main>
 	)
 }

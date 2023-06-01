@@ -11,6 +11,9 @@ import {
 	Routes,
 } from "react-router-dom"
 import { PizzaPage } from './features/pizzas/PizzaPage'
+import { Pizzas } from './features/pizzas/Pizzas'
+import { PizzaCustom } from './features/pizzas/PizzaCustom'
+import Navbar from './pages/Navbar'
 
 const queryClient = new QueryClient();
 
@@ -19,10 +22,13 @@ function App() {
 		<>
 			<Router>
 				<Provider store={store}>
+					<Navbar />
 					<QueryClientProvider client={queryClient}>
 						<Routes>
 							<Route path="/" element={<MainContent />} />
-							<Route path="/posts/:id" element={<PizzaPage />} />
+							<Route path="/pizzas" element={<Pizzas />} />
+							<Route path="/pizza/:id" element={<PizzaPage />} />
+							<Route path="/pizza/custom" element={<PizzaCustom />} />
 						</Routes>
 					</QueryClientProvider>
 					<Footer />

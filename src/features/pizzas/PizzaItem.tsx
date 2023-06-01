@@ -1,6 +1,5 @@
 import { EditOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { Pizza } from './dto/Pizza'
-import { useAppDispatch } from '../../app/hooks';
 import { Link } from 'react-router-dom';
 
 
@@ -24,21 +23,5 @@ export const PizzaItem = ({ pizza }: { pizza: Pizza }) => {
 			<Link to={`pizza/${pizza._id}`} className="add-to-card-button">I want it
 			</Link>
 		</div>
-		// <div className="post-in">
-		// 	<h4 data-testid={`post-title-${pizza._id}`}>{pizza.name}</h4>
-		// 	<div className="content-seperator"></div>
-		// 	<p>{pizza.description}</p>
-		// 	<div>
-		// 		<button className="delete-post-button" data-testid={`post-delete-button-${pizza._id}`}>
-		// 			<ShoppingCartOutlined />
-		// 		</button>
-
-		// 		<Link to={`pizza/${pizza._id}`}><button className="edit-post-button"><EditOutlined /></button>
-		// 		</Link>
-
-
-
-		// 	</div>
-		// </div>
 	)
 }

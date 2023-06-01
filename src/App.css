@@ -144,6 +144,10 @@ main {
 .ant-col{
 	margin-bottom: 50px;
 }
+.ant-row {
+	display: flex;
+	margin: 30px;
+}
 .pizza-card {
 	display: flex;
 	flex-direction: column;
@@ -201,9 +205,7 @@ main {
 	color: var(--header-footer-color);
 }
 
-.ant-row {
-	display: flex;
-}
+
 
 .pizza-card-ingredients {
 	font-size: 20px;
@@ -214,6 +216,11 @@ main {
 
 .pizza-card-ingredients-header {
 	font-weight: 600;
+}
+
+/* Pizza page styles */
+.pizza-page-details{
+	font-size: 20px;
 }
 
 /* Footer styles */
