@@ -13,7 +13,7 @@ export const getPizzasApi = async (pageRequest: PageRequest): Promise<Pizza[]> =
 			}
 		}
 	})
-		.then(response => response.data)
+		.then(response => response.data.docs)
 }
 
 export const getOnePizzaApi = async (id: string): Promise<Pizza> => {

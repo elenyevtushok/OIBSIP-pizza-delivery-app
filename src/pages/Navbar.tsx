@@ -17,11 +17,15 @@ const items: MenuProps['items'] = [
 		key: 'custompizza',
 	},
 	{
-		label: 'Login',
+		label: <Link to='/login'>Login</Link>,
 		key: 'login',
 	},
 	{
-		label: 'Your order',
+		label: <Link to='/register'>Register</Link>,
+		key: 'register',
+	},
+	{
+		label: <Link to='/cart'>Your order</Link>,
 		key: 'order',
 	},
 ];

@@ -1,4 +1,3 @@
-import { EditOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { Pizza } from './dto/Pizza'
 import { Link } from 'react-router-dom';
 

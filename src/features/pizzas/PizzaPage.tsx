@@ -4,6 +4,9 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { Pizza } from './dto/Pizza';
 import { Col, Row } from 'antd';
+import { createOrderApi } from '../../api/order-api';
+import { orderAdd } from '../order/orderSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 
 export const PizzaPage = () => {
@@ -17,6 +20,15 @@ export const PizzaPage = () => {
 			console.log(pizza)
 		})
 	});
+
+	const dispatch = useAppDispatch();
+
+	const { refetch: addToCartHandler } = useQuery(['create-order'], () => createOrderApi(currentPizza!._id, 'standard'), {
+		enabled: false,
+		onSuccess: ((order) => {
+			dispatch(orderAdd(order))
+		})
+	})
 
 	return (
 		<>
@@ -44,8 +56,8 @@ export const PizzaPage = () => {
 								<h4 className='content-title'>Crust</h4>
 								<h4 className='content-title'>Additionals</h4>
 							</div>
-							<Link to={`/card`} className="add-to-card-button">Add to card
-							</Link>
+							<button onClick={() => addToCartHandler()} className="add-to-card-button">Add to cart
+							</button>
 						</div>
 					</Col>
 				</Row>
@@ -53,5 +65,3 @@ export const PizzaPage = () => {
 		</>
 	)
 }
-
-
