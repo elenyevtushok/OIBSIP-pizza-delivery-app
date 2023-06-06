@@ -12,7 +12,7 @@ export const createOrderApi = async (productId: string, size: string): Promise<O
 		.then(response => response.data)
 }
 
-// export const getOnePizzaApi = async (id: string): Promise<Pizza> => {
-// 	return await axiosClient.get(`/pizza/${id}`)
-// 		.then(response => response.data)
-// }
+export const getCurrentOrderApi = async (): Promise<Order> => {
+	return await axiosClient.get(`/order/current`)
+		.then(response => response.data)
+}

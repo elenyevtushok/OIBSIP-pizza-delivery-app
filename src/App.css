@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
+
 /* CSS variables  */
 :root {
 	--header-footer-color: #93AA5C;
@@ -12,6 +13,7 @@
 	--main-font: 'Zilla Slab', serif;
 	--description-font: 'Poppins', sans-serif;
 }
+
 /* General Styling */
 
 #root {
@@ -41,35 +43,56 @@ h4 {
 	color: var(--header-color);
 
 }
+
 /* Header design */
-.ant-menu-overflow{
-	justify-content: space-around;
+.app-header {
 	background-color: var(--header-footer-color);
 	padding: 14px;
+	display: flex;
+	justify-content: space-around;
 }
-.ant-menu-item, .ant-menu-submenu-title{
+
+.app-menu {
+	background-color: var(--header-footer-color);
+	border: none;
+	display: flex;
+	justify-content: space-between;
+}
+
+.ant-menu-item,
+.ant-menu-submenu-title {
 	color: var(--hover-accent-color);
 	font-size: 20px;
 	font-weight: 600;
 }
 
+.app-cart-icon {
+	font-size: 55px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
 /* Pseudo classes styles */
-.ant-menu-item:hover{
+.ant-menu-item:hover {
 	color: var(--header-color);
 }
 
-.ant-menu-light.ant-menu-horizontal>.ant-menu-item-selected{
+.ant-menu-light.ant-menu-horizontal>.ant-menu-item-selected {
 	color: var(--header-color);
 }
-.ant-menu-light.ant-menu-horizontal>.ant-menu-item-selected::after{
+
+.ant-menu-light.ant-menu-horizontal>.ant-menu-item-selected::after {
 	border-bottom-color: var(--header-color);
 }
+
 .ant-menu-light.ant-menu-horizontal>.ant-menu-item:hover::after {
 	border-bottom-color: var(--header-color);
 }
-.ant-menu-light .ant-menu-item:hover:not(.ant-menu-item-selected):not(.ant-menu-submenu-selected){
+
+.ant-menu-light .ant-menu-item:hover:not(.ant-menu-item-selected):not(.ant-menu-submenu-selected) {
 	color: var(--header-color);
 }
+
 /* Header styles */
 .header {
 	line-height: 1.7;
@@ -105,7 +128,7 @@ main {
 	flex: 1;
 }
 
-.content-title{
+.content-title {
 	margin: 30px;
 	letter-spacing: 7px;
 	text-align: center;
@@ -132,7 +155,7 @@ main {
 	text-align: center;
 	text-decoration: none;
 	transition: all .3s;
-	margin: 70px auto 40px ;
+	margin: 70px auto 40px;
 }
 
 .load-more-button:hover {
@@ -141,13 +164,15 @@ main {
 	fill: var(--header-footer-color);
 }
 
-.ant-col{
+.ant-col {
 	margin-bottom: 50px;
 }
+
 .ant-row {
 	display: flex;
 	margin: 30px;
 }
+
 .pizza-card {
 	display: flex;
 	flex-direction: column;
@@ -219,7 +244,7 @@ main {
 }
 
 /* Pizza page styles */
-.pizza-page-details{
+.pizza-page-details {
 	font-size: 20px;
 }
 
