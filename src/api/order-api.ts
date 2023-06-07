@@ -16,3 +16,12 @@ export const getCurrentOrderApi = async (): Promise<Order> => {
 	return await axiosClient.get(`/order/current`)
 		.then(response => response.data)
 }
+
+export const addOrderItemApi = async (orderId: string, productId: string, size: string): Promise<Order> => {
+	const request: CreateOrderItemDTO = {
+		productId: productId,
+		size: size
+	}
+	return await axiosClient.put(`/order/${orderId}/item`, request)
+		.then(response => response.data)
+}

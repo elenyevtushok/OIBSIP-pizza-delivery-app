@@ -13,12 +13,12 @@ export const orderSlice = createSlice({
 	name: 'order',
 	initialState: orderAdapter.getInitialState,
 	reducers: {
-		orderAdd: orderAdapter.addOne,
+		setOrder: orderAdapter.setOne,
 	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(loadCurrentOrder.fulfilled, (state, action) => {
-				orderAdapter.addOne(state, action.payload)
+				orderAdapter.setOne(state, action.payload)
 			})
 	},
 })
@@ -40,5 +40,5 @@ export const selectCurrentOrder = (state: RootState) => {
 	return orders.length > 0 ? orders[0] : null;
 };
 
-export const { orderAdd } = orderSlice.actions
+export const { setOrder } = orderSlice.actions
 export default orderSlice.reducer

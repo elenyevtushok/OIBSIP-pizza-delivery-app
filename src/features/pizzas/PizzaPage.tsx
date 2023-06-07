@@ -4,14 +4,15 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { Pizza } from './dto/Pizza';
 import { Col, Row } from 'antd';
-import { createOrderApi } from '../../api/order-api';
-import { orderAdd } from '../order/orderSlice';
+import { addOrderItemApi, createOrderApi } from '../../api/order-api';
+import { loadCurrentOrder, selectCurrentOrder, selectOrder, setOrder } from '../order/orderSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 
 export const PizzaPage = () => {
 
 	const { id } = useParams();
+	const dispatch = useAppDispatch();
 
 	const [currentPizza, setCurrentPizza] = useState<Pizza | null>(null);
 	const { data: pizza } = useQuery(['one-pizza', id], () => getOnePizzaApi(id!), {
@@ -21,14 +22,26 @@ export const PizzaPage = () => {
 		})
 	});
 
-	const dispatch = useAppDispatch();
+	const currentOrder = useAppSelector(selectCurrentOrder);
 
-	const { refetch: addToCartHandler } = useQuery(['create-order'], () => createOrderApi(currentPizza!._id, 'standard'), {
-		enabled: false,
-		onSuccess: ((order) => {
-			dispatch(orderAdd(order))
-		})
-	})
+	const addToCartHandler = async () => {
+
+		if (currentOrder) {
+			// Order already exists
+			console.log('Order already exists:');
+			const updatedOrder = await addOrderItemApi(currentOrder._id, currentPizza!._id, 'large');
+
+			dispatch(setOrder(updatedOrder));
+			dispatch(loadCurrentOrder());
+			console.log(`order id is ${updatedOrder._id}`)
+		} else {
+			// Order doesn't exist, create a new one
+				const order = await createOrderApi(currentPizza!._id, 'standard');
+				dispatch(setOrder(order));
+				dispatch(loadCurrentOrder());
+				console.log(`order id is ${order._id}`)
+		}
+	};
 
 	return (
 		<>
