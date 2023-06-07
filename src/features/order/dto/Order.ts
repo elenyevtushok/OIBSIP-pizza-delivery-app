@@ -12,6 +12,7 @@ export interface OrderItem {
 	additionals: string[];
 	price: number;
 	amount: number;
+	size: string;
 }
 
 export interface CreateOrderDTO {

@@ -33,6 +33,15 @@ export const pizzasSlice = createSlice({
 	},
 })
 
+export const selectPizzaByProductId = (state: RootState, productId: string) => {
+	return selectPizza(state).find((pizza) => pizza._id === productId);
+};
+
+export const selectPizzasByProductIds = (state: RootState, productIds: string[]) => {
+	return selectPizza(state).filter((pizza) => productIds.includes(pizza._id));
+};
+
+
 export const {
 	selectById: selectPizzaById,
 	selectAll: selectPizza

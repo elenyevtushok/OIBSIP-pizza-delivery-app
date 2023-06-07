@@ -26,25 +26,28 @@ export const AppCart = () => {
 					}}
 					className="ant-menu-item ant-menu-submenu-title app-cart-icon" />
 			</Badge>
-			<Drawer
-				open={cartDrawerOpen}
-				onClose={() => {
-					setCartDrawerOpen(false);
-				}}
-				title="Your Cart"
-				contentWrapperStyle={{ width: 700 }}
-			>
-				<CartTable order={order} />
-				<Link to={"/checkout"}><Button onClick={() => {
-					setCartDrawerOpen(false);
-				}}
-					type="primary"
+			{order &&
+				<Drawer
+					open={cartDrawerOpen}
+					onClose={() => {
+						setCartDrawerOpen(false);
+					}}
+					title="Your Cart"
+					contentWrapperStyle={{ width: 700 }}
 				>
-					Proceed to Checkout
-				</Button>
-				</Link>
+					<CartTable order={order} />
+					<Link to={"/checkout"}><Button onClick={() => {
+						setCartDrawerOpen(false);
+					}}
+						type="primary"
+					>
+						Proceed to Checkout
+					</Button>
+					</Link>
 
-			</Drawer>
+				</Drawer>
+			}
+
 		</div>
 	);
 };

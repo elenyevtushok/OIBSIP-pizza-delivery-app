@@ -32,13 +32,11 @@ export const PizzaPage = () => {
 			const updatedOrder = await addOrderItemApi(currentOrder._id, currentPizza!._id, 'large');
 
 			dispatch(setOrder(updatedOrder));
-			dispatch(loadCurrentOrder());
 			console.log(`order id is ${updatedOrder._id}`)
 		} else {
 			// Order doesn't exist, create a new one
 				const order = await createOrderApi(currentPizza!._id, 'standard');
 				dispatch(setOrder(order));
-				dispatch(loadCurrentOrder());
 				console.log(`order id is ${order._id}`)
 		}
 	};
