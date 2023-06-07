@@ -14,9 +14,9 @@ import { PizzaPage } from './features/pizzas/PizzaPage'
 import { Pizzas } from './features/pizzas/Pizzas'
 import { PizzaCustom } from './features/pizzas/PizzaCustom'
 import Navbar from './pages/Navbar'
-import { Cart } from './pages/Cart'
 import { Login } from './pages/Login'
 import { Register } from './pages/Register'
+import {Checkout} from './pages/Checkout'
 
 const queryClient = new QueryClient();
 
@@ -31,10 +31,10 @@ function App() {
 							<Route path="/" element={<MainContent />} />
 							<Route path="/login" element={<Login />} />
 							<Route path="/register" element={<Register />} />
-							<Route path="/cart" element={<Cart />} />
 							<Route path="/pizzas" element={<Pizzas />} />
 							<Route path="/pizza/:id" element={<PizzaPage />} />
 							<Route path="/pizza/custom" element={<PizzaCustom />} />
+							<Route path="/checkout" element={<Checkout />} />
 						</Routes>
 					</QueryClientProvider>
 					<Footer />

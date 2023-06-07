@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
-import { selectPizza } from '../features/pizzas/pizzasSlice';
 import { AppCart } from './AppCart';
 
 const items: MenuProps['items'] = [

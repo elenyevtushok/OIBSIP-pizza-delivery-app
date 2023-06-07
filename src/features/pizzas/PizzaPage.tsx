@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { getOnePizzaApi } from '../../api/pizzas-api';
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Pizza } from './dto/Pizza';
 import { Col, Row } from 'antd';
 import { addOrderItemApi, createOrderApi } from '../../api/order-api';
-import { loadCurrentOrder, selectCurrentOrder, selectOrder, setOrder } from '../order/orderSlice';
+import { loadCurrentOrder, selectCurrentOrder, setOrder } from '../order/orderSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 
