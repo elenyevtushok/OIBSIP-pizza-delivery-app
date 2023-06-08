@@ -25,3 +25,9 @@ export const addOrderItemApi = async (orderId: string, productId: string, size: 
 	return await axiosClient.put(`/order/${orderId}/item`, request)
 		.then(response => response.data)
 }
+
+export const deleteOrderItemApi = async (orderId: string, orderItemId: string): Promise<Order> => {
+
+	return await axiosClient.delete(`/order/${orderId}/item/${orderItemId}`)
+		.then(response => response.data)
+}

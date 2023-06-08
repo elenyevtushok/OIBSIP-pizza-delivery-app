@@ -3,7 +3,7 @@ import { Table, Image, InputNumber } from 'antd';
 import { Order, OrderItem } from '../features/order/dto/Order';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectPizzasByProductIds } from '../features/pizzas/pizzasSlice';
-import { addOrderItemApi } from '../api/order-api';
+import { addOrderItemApi, deleteOrderItemApi } from '../api/order-api';
 import { setOrder } from '../features/order/orderSlice';
 import { Pizza } from '../features/pizzas/dto/Pizza';
 
@@ -35,9 +35,18 @@ const CartTable: React.FC<CartTableProps> = ({ order }) => {
 		dispatch(setOrder(updatedOrder));
 	};
 
+	const decreaseOrderItem = async (orderItemData: OrderItemData) => {
+		const updatedOrder = await deleteOrderItemApi(order!._id, orderItemData.orderItem._id);
+		dispatch(setOrder(updatedOrder));
+	};
+
+
 	const onStepHandler = (orderItem: OrderItemData, type: 'up' | 'down') => {
 		if (type == 'up') {
 			increaseOrderItem(orderItem);
+		}
+		if (type == 'down') {
+			decreaseOrderItem(orderItem);
 		}
 	}
 
