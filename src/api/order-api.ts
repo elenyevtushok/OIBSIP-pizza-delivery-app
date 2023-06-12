@@ -26,8 +26,12 @@ export const addOrderItemApi = async (orderId: string, productId: string, size: 
 		.then(response => response.data)
 }
 
-export const deleteOrderItemApi = async (orderId: string, orderItemId: string): Promise<Order> => {
-
-	return await axiosClient.delete(`/order/${orderId}/item/${orderItemId}`)
+export const deleteOrderItemApi = async (orderId: string, orderItemId: string, deleteOrderItemCompletely?: boolean): Promise<Order> => {
+	return await axiosClient.delete(`/order/${orderId}/item/${orderItemId}`,
+		{
+			params: {
+				deleteOrderItemCompletely: deleteOrderItemCompletely
+			}
+		})
 		.then(response => response.data)
 }

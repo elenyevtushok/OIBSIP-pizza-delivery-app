@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Badge, Button, Drawer, InputNumber, Table } from 'antd';
 import { Link } from 'react-router-dom';
 import { ShoppingCartOutlined } from '@ant-design/icons';
@@ -6,14 +6,20 @@ import { loadCurrentOrder, selectCurrentOrder } from '../features/order/orderSli
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { store } from '../app/store';
 import CartTable from './CartTable';
-import { selectPizzaById } from '../features/pizzas/pizzasSlice';
+
 
 store.dispatch(loadCurrentOrder())
 
 export const AppCart = () => {
 	const order = useAppSelector(selectCurrentOrder);
+	const dispatch = useAppDispatch();
 
 	const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
+
+	useEffect(() => {
+		// Dispatch the loadCurrentOrder action whenever the component mounts or the order state changes
+		dispatch(loadCurrentOrder());
+	}, [dispatch]);
 
 	return (
 		<div>
@@ -36,13 +42,12 @@ export const AppCart = () => {
 					contentWrapperStyle={{ width: 700 }}
 				>
 					<CartTable order={order} />
-					<Link to={"/checkout"}><Button onClick={() => {
+					<Link to={"/checkout"}><button className='add-to-card-button' onClick={() => {
 						setCartDrawerOpen(false);
 					}}
-						type="primary"
 					>
 						Proceed to Checkout
-					</Button>
+					</button>
 					</Link>
 
 				</Drawer>

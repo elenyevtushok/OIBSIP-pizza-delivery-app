@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Pizza } from './dto/Pizza';
 import { Col, Row } from 'antd';
 import { addOrderItemApi, createOrderApi } from '../../api/order-api';
-import { loadCurrentOrder, selectCurrentOrder, setOrder } from '../order/orderSlice';
+import { loadCurrentOrder, selectCurrentOrder, selectCurrentOrderId, setOrder } from '../order/orderSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 
@@ -18,7 +18,6 @@ export const PizzaPage = () => {
 	const { data: pizza } = useQuery(['one-pizza', id], () => getOnePizzaApi(id!), {
 		onSuccess: ((pizza) => {
 			setCurrentPizza(pizza);
-			console.log(pizza)
 		})
 	});
 
@@ -35,9 +34,10 @@ export const PizzaPage = () => {
 			console.log(`order id is ${updatedOrder._id}`)
 		} else {
 			// Order doesn't exist, create a new one
-				const order = await createOrderApi(currentPizza!._id, 'standard');
-				dispatch(setOrder(order));
-				console.log(`order id is ${order._id}`)
+			console.log('Create a new order');
+			const order = await createOrderApi(currentPizza!._id, 'standard');
+			dispatch(setOrder(order));
+			console.log(`order id is ${order._id}`)
 		}
 	};
 

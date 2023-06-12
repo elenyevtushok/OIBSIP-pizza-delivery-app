@@ -3,6 +3,8 @@ import { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import { AppCart } from './AppCart';
+import { useCookies } from 'react-cookie';
+import cryptoRandomString from 'crypto-random-string';
 
 const items: MenuProps['items'] = [
 	{
@@ -28,6 +30,13 @@ const items: MenuProps['items'] = [
 ];
 
 const Navbar: React.FC = () => {
+	const [cookies, setCookie] = useCookies(["sessionId"]);
+	if (cookies.sessionId == null) {
+		const randomSessionId = cryptoRandomString({ length: 10 });
+		setCookie("sessionId", randomSessionId, { path: "/" });
+	}
+
+
 	const [current, setCurrent] = useState('');
 
 	const onClick: MenuProps['onClick'] = (e) => {

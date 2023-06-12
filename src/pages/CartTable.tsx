@@ -6,6 +6,7 @@ import { selectPizzasByProductIds } from '../features/pizzas/pizzasSlice';
 import { addOrderItemApi, deleteOrderItemApi } from '../api/order-api';
 import { setOrder } from '../features/order/orderSlice';
 import { Pizza } from '../features/pizzas/dto/Pizza';
+import { DeleteOutlined } from '@ant-design/icons';
 
 
 interface CartTableProps {
@@ -40,6 +41,11 @@ const CartTable: React.FC<CartTableProps> = ({ order }) => {
 		dispatch(setOrder(updatedOrder));
 	};
 
+	const deleteOrderItem = async (orderItemData: OrderItemData) => {
+		const updatedOrder = await deleteOrderItemApi(order!._id, orderItemData.orderItem._id, true);
+		dispatch(setOrder(updatedOrder));
+	};
+
 
 	const onStepHandler = (orderItem: OrderItemData, type: 'up' | 'down') => {
 		if (type == 'up') {
@@ -62,7 +68,6 @@ const CartTable: React.FC<CartTableProps> = ({ order }) => {
 						src={record.pizza?.imageUrls[0] || ''}
 						alt={record.pizza?.name || ''}
 						width={100}
-						height={100}
 					/>
 				)
 			}
@@ -74,8 +79,8 @@ const CartTable: React.FC<CartTableProps> = ({ order }) => {
 			render: (pizza: string, record: OrderItemData) => {
 				return (
 					<div>
-						<p>{record.pizza?.name}</p>
-						<p>{record.orderItem.size}</p>
+						<p className='cart-pizza-title'>{record.pizza?.name}</p>
+						<p className='cart-pizza-size'>{record.orderItem.size}</p>
 					</div>
 				)
 			}
@@ -86,11 +91,17 @@ const CartTable: React.FC<CartTableProps> = ({ order }) => {
 			key: 'amount',
 			render: (amount: number, record: OrderItemData) => {
 				return (
-					<InputNumber
-						min={0}
-						defaultValue={record.orderItem.amount}
-						onStep={(value, info) => onStepHandler(record, info.type)}
-					/>
+					<>
+						<p><InputNumber
+							min={0}
+							defaultValue={record.orderItem.amount}
+							onStep={(value, info) => onStepHandler(record, info.type)}
+						/>
+						</p>
+						<button className = "delete-from-cart-button" onClick={() => deleteOrderItem(record)}>
+							<DeleteOutlined />
+						</button>
+					</>
 				);
 			},
 		},
@@ -106,7 +117,10 @@ const CartTable: React.FC<CartTableProps> = ({ order }) => {
 	];
 
 	return (
-		<Table columns={columns} dataSource={orderItemsData} pagination={false} />
+		<>
+			<Table columns={columns} dataSource={orderItemsData} pagination={false} />
+			<p>Total: € {order.totalPrice}</p>
+		</>
 	);
 };
 

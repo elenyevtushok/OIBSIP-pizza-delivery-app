@@ -18,7 +18,10 @@ export const orderSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(loadCurrentOrder.fulfilled, (state, action) => {
-				orderAdapter.setOne(state, action.payload)
+				console.log(`setOrder:  ${JSON.stringify(action.payload)}`)
+				if (action.payload != null) {
+					orderAdapter.setOne(state, action.payload)
+				}
 			})
 	},
 })
@@ -37,7 +40,8 @@ export const {
 
 export const selectCurrentOrder = (state: RootState) => {
 	const orders = selectOrder(state);
-	return orders.length > 0 ? orders[0] : null;
+	console.log(`selectCurrentOrder:  ${JSON.stringify(orders)}`)
+	return orders.find(order => order?._id != null);
 };
 
 export const { setOrder } = orderSlice.actions

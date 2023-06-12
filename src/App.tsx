@@ -16,7 +16,8 @@ import { PizzaCustom } from './features/pizzas/PizzaCustom'
 import Navbar from './pages/Navbar'
 import { Login } from './pages/Login'
 import { Register } from './pages/Register'
-import {Checkout} from './pages/Checkout'
+import { Checkout } from './pages/Checkout'
+import { CookiesProvider } from 'react-cookie';
 
 const queryClient = new QueryClient();
 
@@ -25,18 +26,20 @@ function App() {
 		<>
 			<Router>
 				<Provider store={store}>
-					<Navbar />
-					<QueryClientProvider client={queryClient}>
-						<Routes>
-							<Route path="/" element={<MainContent />} />
-							<Route path="/login" element={<Login />} />
-							<Route path="/register" element={<Register />} />
-							<Route path="/pizzas" element={<Pizzas />} />
-							<Route path="/pizza/:id" element={<PizzaPage />} />
-							<Route path="/pizza/custom" element={<PizzaCustom />} />
-							<Route path="/checkout" element={<Checkout />} />
-						</Routes>
-					</QueryClientProvider>
+					<CookiesProvider>
+						<QueryClientProvider client={queryClient}>
+							<Navbar />
+							<Routes>
+								<Route path="/" element={<MainContent />} />
+								<Route path="/login" element={<Login />} />
+								<Route path="/register" element={<Register />} />
+								<Route path="/pizzas" element={<Pizzas />} />
+								<Route path="/pizza/:id" element={<PizzaPage />} />
+								<Route path="/pizza/custom" element={<PizzaCustom />} />
+								<Route path="/checkout" element={<Checkout />} />
+							</Routes>
+						</QueryClientProvider>
+					</CookiesProvider>
 					<Footer />
 				</Provider>
 			</Router>
