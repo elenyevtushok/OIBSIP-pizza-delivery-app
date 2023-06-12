@@ -39,7 +39,7 @@ export const AppCart = () => {
 						setCartDrawerOpen(false);
 					}}
 					title="Your Cart"
-					contentWrapperStyle={{ width: 700 }}
+					contentWrapperStyle={{ width: 800 }}
 				>
 					<CartTable order={order} />
 					<Link to={"/checkout"}><button className='add-to-card-button' onClick={() => {

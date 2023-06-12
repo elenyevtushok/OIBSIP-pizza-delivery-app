@@ -7,6 +7,7 @@ import { addOrderItemApi, deleteOrderItemApi } from '../api/order-api';
 import { setOrder } from '../features/order/orderSlice';
 import { Pizza } from '../features/pizzas/dto/Pizza';
 import { DeleteOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 
 interface CartTableProps {
@@ -64,10 +65,10 @@ const CartTable: React.FC<CartTableProps> = ({ order }) => {
 			key: 'image',
 			render: (image: string, record: OrderItemData) => {
 				return (
-					<Image
+					<img
 						src={record.pizza?.imageUrls[0] || ''}
 						alt={record.pizza?.name || ''}
-						width={100}
+						className='cart-pizza-image'
 					/>
 				)
 			}
@@ -80,7 +81,7 @@ const CartTable: React.FC<CartTableProps> = ({ order }) => {
 				return (
 					<div>
 						<p className='cart-pizza-title'>{record.pizza?.name}</p>
-						<p className='cart-pizza-size'>{record.orderItem.size}</p>
+						<p className='cart-pizza-size'>Size: {record.orderItem.size}</p>
 					</div>
 				)
 			}
@@ -98,9 +99,9 @@ const CartTable: React.FC<CartTableProps> = ({ order }) => {
 							onStep={(value, info) => onStepHandler(record, info.type)}
 						/>
 						</p>
-						<button className = "delete-from-cart-button" onClick={() => deleteOrderItem(record)}>
+						{/* <button className = "delete-from-cart-button" onClick={() => deleteOrderItem(record)}>
 							<DeleteOutlined />
-						</button>
+						</button> */}
 					</>
 				);
 			},
@@ -114,12 +115,26 @@ const CartTable: React.FC<CartTableProps> = ({ order }) => {
 				return `€ ${totalPrice.toFixed(2)}`; // Display the formatted total price
 			},
 		},
+		{
+			title: 'Delete',
+			render: (record: OrderItemData) => {
+				return (
+						<button className="delete-from-cart-button" onClick={() => deleteOrderItem(record)}>
+							<DeleteOutlined />
+						</button>
+				);
+			},
+		}
 	];
 
 	return (
 		<>
 			<Table columns={columns} dataSource={orderItemsData} pagination={false} />
-			<p>Total: € {order.totalPrice}</p>
+			<div className="cart-total">
+				<p className="cart-total-amount">Total pizzas: {order.totalAmount}</p>
+				<p className="cart-total-price">Total price: € {order.totalPrice}</p>
+			</div>
+			
 		</>
 	);
 };

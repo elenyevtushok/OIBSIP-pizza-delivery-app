@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Pizza } from './dto/Pizza';
 import { Col, Row } from 'antd';
 import { addOrderItemApi, createOrderApi } from '../../api/order-api';
-import { loadCurrentOrder, selectCurrentOrder, selectCurrentOrderId, setOrder } from '../order/orderSlice';
+import { selectCurrentOrder, setOrder } from '../order/orderSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 
@@ -64,8 +64,8 @@ export const PizzaPage = () => {
 							</div>
 							<div>
 								<h4 className='content-title'>Size</h4>
-								<h4 className='content-title'>Crust</h4>
-								<h4 className='content-title'>Additionals</h4>
+								{/* <h4 className='content-title'>Crust</h4>
+								<h4 className='content-title'>Additionals</h4> */}
 							</div>
 							<button onClick={() => addToCartHandler()} className="add-to-card-button">Add to cart
 							</button>
