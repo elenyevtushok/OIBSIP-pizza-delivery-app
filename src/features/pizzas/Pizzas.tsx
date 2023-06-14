@@ -14,6 +14,10 @@ export const Pizzas = () => {
 	const pizzas = useAppSelector(selectPizza);
 	const dispatch = useAppDispatch();
 
+	console.log(page)
+	console.log(pizzas)
+
+
 	const handleLoadMore = () => {
 		setPage(prevPage => prevPage + 1)
 		dispatch(loadMorePizzas(page + 1))
@@ -32,7 +36,7 @@ export const Pizzas = () => {
 					<>
 						<Row gutter={[24, 24]}>{pizzas?.map(pizza => {
 							return (
-								<Col key={pizza._id} xs={{ span: 16 }} sm={{ span: 12 }} md={{ span: 12 }} lg={{ span: 12 }} xl={{ span: 12 }} >
+								<Col key={pizza._id} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 12 }} xl={{ span: 12 }} >
 									<PizzaItem key={pizza._id} pizza={pizza} />
 								</Col>
 							)

@@ -55,9 +55,9 @@ h4 {
 .app-menu {
 	background-color: var(--header-footer-color);
 	border: none;
-	display: flex;
-	justify-content: space-between;
+	width: 50%;
 }
+
 
 .ant-menu-item,
 .ant-menu-submenu-title {
@@ -176,6 +176,7 @@ main {
 .pizza-card {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 	flex-basis: 100%;
 	position: relative;
 	padding: 24px;
@@ -406,12 +407,12 @@ footer {
 	font-size: 14px;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 420px) {
 	.header-text-top {
 		font-size: 40px;
 	}
 
 	h1 {
-		font-size: 40px;
+		font-size: 22px;
 	}
 }

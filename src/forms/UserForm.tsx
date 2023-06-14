@@ -13,11 +13,6 @@ export const UserForm: React.FC = () => {
 		dispatch(createUser(values));
 	};
 
-	// const onFinishFailed = (errorInfo: any) => {
-	// 	console.log('Failed:', errorInfo);
-	// };
-
-
 return(
 	<>
 		<h4 className='content-title'>User Information</h4>

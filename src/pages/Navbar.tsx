@@ -14,19 +14,19 @@ const items: MenuProps['items'] = [
 	{
 		label: <Link to='/pizzas' >Choose Pizza</Link>,
 		key: 'choosepizza',
-	},
-	{
-		label: <Link to='/pizza/custom' >Make your Pizza</Link>,
-		key: 'custompizza',
-	},
-	{
-		label: <Link to='/login'>Login</Link>,
-		key: 'login',
-	},
-	{
-		label: <Link to='/register'>Register</Link>,
-		key: 'register',
 	}
+	// {
+	// 	label: <Link to='/pizza/custom' >Make your Pizza</Link>,
+	// 	key: 'custompizza',
+	// },
+	// {
+	// 	label: <Link to='/login'>Login</Link>,
+	// 	key: 'login',
+	// },
+	// {
+	// 	label: <Link to='/register'>Register</Link>,
+	// 	key: 'register',
+	// }
 ];
 
 const Navbar: React.FC = () => {
@@ -36,11 +36,9 @@ const Navbar: React.FC = () => {
 		setCookie("sessionId", randomSessionId, { path: "/" });
 	}
 
-
 	const [current, setCurrent] = useState('');
 
 	const onClick: MenuProps['onClick'] = (e) => {
-		console.log('click ', e);
 		setCurrent(e.key);
 	};
 
