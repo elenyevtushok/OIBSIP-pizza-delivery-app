@@ -18,6 +18,7 @@ import { Login } from './pages/Login'
 import { Register } from './pages/Register'
 import { Checkout } from './pages/Checkout'
 import { CookiesProvider } from 'react-cookie';
+import { FinishOrder } from './pages/FinishOrder'
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,7 @@ function App() {
 								<Route path="/pizza/:id" element={<PizzaPage />} />
 								<Route path="/pizza/custom" element={<PizzaCustom />} />
 								<Route path="/checkout" element={<Checkout />} />
+								<Route path="/finishorder" element={<FinishOrder />} />
 							</Routes>
 						</QueryClientProvider>
 					</CookiesProvider>

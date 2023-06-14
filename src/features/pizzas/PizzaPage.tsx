@@ -55,7 +55,6 @@ export const PizzaPage = () => {
 	};
 
 	return (
-		<>
 			<main>
 				<div className='content-title'>
 					<h1>{`Try amazing ${currentPizza?.name} pizza`}</h1>
@@ -93,6 +92,5 @@ export const PizzaPage = () => {
 					</Col>
 				</Row>
 			</main>
-		</>
 	)
 }

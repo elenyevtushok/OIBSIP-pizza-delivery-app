@@ -20,10 +20,9 @@ const PaymentMethodForm: React.FC = () => {
 				name="paymentMethod"
 				// onFinish={onFinish}
 				>
-			<Radio.Group onChange={onChangePaymentMethod}>
+			<Radio.Group onChange={onChangePaymentMethod} defaultValue={"cash"}>
 				<Space direction="vertical">
-					<Radio value="cash">Cash</Radio>
-					<Radio value="creditCardOnline">Credit card online</Radio>
+					<Radio value="cash">Cash to courier</Radio>
 					<Radio value="creditCardCourier">Credit card to courier</Radio>
 				</Space>
 			</Radio.Group>
