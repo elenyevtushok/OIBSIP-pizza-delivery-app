@@ -3,7 +3,7 @@ import { getOnePizzaApi } from '../../api/pizzas-api';
 import { useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { Pizza } from './dto/Pizza';
-import { Col, Row } from 'antd';
+import { Col, Radio, RadioChangeEvent, Row, Select } from 'antd';
 import { addOrderItemApi, createOrderApi } from '../../api/order-api';
 import { selectCurrentOrder, setOrder } from '../order/orderSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -11,15 +11,28 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 export const PizzaPage = () => {
 
+	const [sizeOption, setSizeOption] = useState('standard');
+
+	const onChangeSize = ({ target: { value } }: RadioChangeEvent) => {
+		setSizeOption(value);
+	};
+
 	const { id } = useParams();
 	const dispatch = useAppDispatch();
 
 	const [currentPizza, setCurrentPizza] = useState<Pizza | null>(null);
-	const { data: pizza } = useQuery(['one-pizza', id], () => getOnePizzaApi(id!), {
+	useQuery(['one-pizza', id], () => getOnePizzaApi(id!), {
 		onSuccess: ((pizza) => {
 			setCurrentPizza(pizza);
 		})
 	});
+
+	const getCurrentPizzaPrice = () => {
+		return currentPizza?.sizes.find(size => size.size == sizeOption)?.price;
+	};
+	const getCurrentPizzaWeight = () => {
+		return currentPizza?.sizes.find(size => size.size == sizeOption)?.weight;
+	};
 
 	const currentOrder = useAppSelector(selectCurrentOrder);
 
@@ -28,14 +41,14 @@ export const PizzaPage = () => {
 		if (currentOrder) {
 			// Order already exists
 			console.log('Order already exists:');
-			const updatedOrder = await addOrderItemApi(currentOrder._id, currentPizza!._id, 'large');
+			const updatedOrder = await addOrderItemApi(currentOrder._id, currentPizza!._id, sizeOption);
 
 			dispatch(setOrder(updatedOrder));
 			console.log(`order id is ${updatedOrder._id}`)
 		} else {
 			// Order doesn't exist, create a new one
 			console.log('Create a new order');
-			const order = await createOrderApi(currentPizza!._id, 'standard');
+			const order = await createOrderApi(currentPizza!._id, sizeOption);
 			dispatch(setOrder(order));
 			console.log(`order id is ${order._id}`)
 		}
@@ -45,11 +58,11 @@ export const PizzaPage = () => {
 		<>
 			<main>
 				<div className='content-title'>
-					<h1>{`Try amazing ${pizza?.name} pizza`}</h1>
+					<h1>{`Try amazing ${currentPizza?.name} pizza`}</h1>
 				</div>
 				<Row>
 					<Col xs={{ span: 16 }} sm={{ span: 12 }} md={{ span: 12 }} lg={{ span: 12 }} xl={{ span: 12 }}>
-						<img src={pizza?.imageUrls[0]} alt={pizza?.name} height={300} />
+						<img src={currentPizza?.imageUrls[0]} alt={currentPizza?.name} height={300} />
 					</Col>
 					<Col xs={{ span: 16 }} sm={{ span: 12 }} md={{ span: 12 }} lg={{ span: 12 }} xl={{ span: 12 }}>
 						<div className='pizza-page-details'>
@@ -57,15 +70,22 @@ export const PizzaPage = () => {
 							<div className='pizza-card-ingredients'>
 								<p className='pizza-card-ingredients-header'> Ingredients:</p>
 								<ul >
-									{pizza?.ingredients?.map(ingredient => {
+									{currentPizza?.ingredients?.map(ingredient => {
 										return <li key={ingredient}>{ingredient}</li>
 									})}
 								</ul>
 							</div>
 							<div>
-								<h4 className='content-title'>Size</h4>
-								{/* <h4 className='content-title'>Crust</h4>
-								<h4 className='content-title'>Additionals</h4> */}
+								<h4 className='content-title'>Choose the size</h4>
+								<div className='radio-button-group'>
+									<Radio.Group onChange={onChangeSize} optionType="button" className='radio-button-group'>
+										<Radio.Button className='radio-button' value="standard">Standard</Radio.Button>
+										<Radio.Button className='radio-button' value="large">Large</Radio.Button>
+										<Radio.Button className='radio-button' value="extralarge">Extralarge</Radio.Button>
+									</Radio.Group>
+								</div>
+								<p className='pizza-weight'>Approximate weight: {getCurrentPizzaWeight()}g</p>
+								<h4 className='content-title'>Price: €{getCurrentPizzaPrice()}</h4>
 							</div>
 							<button onClick={() => addToCartHandler()} className="add-to-card-button">Add to cart
 							</button>

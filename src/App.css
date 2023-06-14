@@ -230,6 +230,40 @@ main {
 	color: var(--header-footer-color);
 }
 
+.radio-button-group {
+	text-align: center;
+}
+
+.radio-button {
+	border-color: var(--hover-accent-color);
+	font-size: 20px;
+	border-width: 2px;
+	color: var(--header-footer-color);
+	height: 50px;
+	width: 150px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+.ant-radio-button-wrapper:first-child {
+	border-inline-start: 2px solid var(--hover-accent-color);
+}
+
+.ant-radio-button-wrapper:not(:first-child)::before {
+	background-color: var(--hover-accent-color);
+}
+
+.radio-button:hover {
+	color: var(--header-color);
+	border-color: var(--header-color);
+}
+
+.ant-radio-button-wrapper-checked {
+	color: var(--header-color) !important;
+	border-color: var(--header-color) !important;
+}
 
 
 .pizza-card-ingredients {
@@ -319,6 +353,37 @@ th.ant-table-cell {
 	font-size: 24px;
 	font-weight: 700;
 }
+
+/* Form Styles */
+
+.ant-form-item-control {
+	margin-bottom: 0px;
+}
+
+/* Checkout Page Styles */
+
+.checkout-header {
+	text-align: center;
+	color: var(--header-color);
+	letter-spacing: 4px;
+}
+
+.ant-form-item-label,
+.ant-radio-wrapper {
+	font-family: var(--description-font);
+}
+
+.checkout-payment-method-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.checkout-button {
+	padding: 20px 40px;
+}
+
 
 /* Footer styles */
 
