@@ -1,4 +1,4 @@
-import { CreateOrderDTO, CreateOrderItemDTO, Order } from "../features/order/dto/Order";
+import { CreateOrderDTO, CreateOrderItemDTO, Order, UpdateOrder } from "../features/order/dto/Order";
 import { axiosClient } from "./axios-client";
 
 export const createOrderApi = async (productId: string, size: string): Promise<Order> => {
@@ -23,6 +23,11 @@ export const addOrderItemApi = async (orderId: string, productId: string, size: 
 		size: size
 	}
 	return await axiosClient.put(`/order/${orderId}/item`, request)
+		.then(response => response.data)
+}
+
+export const updateOrderApi = async (orderId: string, request: UpdateOrder ): Promise<Order> => {
+	return await axiosClient.put(`/order/${orderId}`, request)
 		.then(response => response.data)
 }
 

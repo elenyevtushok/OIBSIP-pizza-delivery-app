@@ -42,7 +42,7 @@ export const Pizzas = () => {
 							)
 						})}
 						</Row>
-						<button className="load-more-button" data-testid="load-more-button" onClick={() => handleLoadMore()}>Show me more</button>
+						{/* <button className="load-more-button" data-testid="load-more-button" onClick={() => handleLoadMore()}>Show me more</button> */}
 					</>
 				)
 			}

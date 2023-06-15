@@ -49,7 +49,6 @@ export const AppCart = () => {
 						Proceed to Checkout
 					</button>
 					</Link>
-
 				</Drawer>
 			}
 

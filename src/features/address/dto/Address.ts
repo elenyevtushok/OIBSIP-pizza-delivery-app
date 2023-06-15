@@ -1,9 +1,6 @@
-export interface Address{
+export interface Address extends CreateAddressDTO{
 	_id: string;
-	city: string;
-	street: string;
-	houseNumber: string;
-	apartment?: string;
+
 }
 
 export interface CreateAddressDTO{

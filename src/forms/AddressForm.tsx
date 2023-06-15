@@ -7,11 +7,11 @@ import { useAppDispatch } from '../app/hooks';
 
 export const AddressForm: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const [form] = Form.useForm();
+	const [addressForm] = Form.useForm();
 
-	const onFinish = (values: Address) => {
-		console.log('Success:', values);
-		dispatch(createAddress(values));
+	const onFinishAddressForm = (addressValues: Address) => {
+		console.log('Success:', addressValues);
+		dispatch(createAddress(addressValues));
 	};
 
 	return (
@@ -19,14 +19,14 @@ export const AddressForm: React.FC = () => {
 			<h4 className='content-title'>Delivery address</h4>
 			<Form
 				className='checkout-form address-form'
-				form={form}
+				form={addressForm}
 				name="address"
 				labelCol={{ span: 8 }}
 				wrapperCol={{ span: 24 }}
 				style={{ maxWidth: 600, margin: "auto" }}
 				layout="vertical"
 				initialValues={{ remember: true }}
-				onFinish={onFinish}
+				onFinish={onFinishAddressForm}
 				autoComplete="off"
 			>
 				<Form.Item

@@ -1,8 +1,8 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import { RootState } from '../../app/store';
-import { Order } from './dto/Order';
-import { getCurrentOrderApi } from '../../api/order-api';
+import { Order, UpdateOrder } from './dto/Order';
+import { getCurrentOrderApi, updateOrderApi } from '../../api/order-api';
 
 
 const orderAdapter = createEntityAdapter<Order>({
@@ -30,6 +30,13 @@ export const loadCurrentOrder = createAsyncThunk.withTypes<{ state: RootState }>
 	'order/loadCurrentOrder',
 	async () => {
 		return await getCurrentOrderApi();
+	}
+);
+
+export const updateOrder = createAsyncThunk(
+	'order/updateOrder',
+	async ({ orderId, updateOrder }: { orderId: string, updateOrder: UpdateOrder }) => {
+		return await updateOrderApi(orderId, updateOrder);
 	}
 );
 

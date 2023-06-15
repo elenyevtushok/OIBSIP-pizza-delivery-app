@@ -164,7 +164,7 @@ main {
 	fill: var(--header-footer-color);
 }
 
-.ant-col {
+.pizza-card-col {
 	margin-bottom: 50px;
 }
 
@@ -179,7 +179,6 @@ main {
 	justify-content: space-between;
 	flex-basis: 100%;
 	position: relative;
-	padding: 24px;
 	background: #fff;
 	height: 100%;
 	margin-bottom: 20px;
@@ -208,6 +207,11 @@ main {
 	border-left: 3px solid var(--hover-accent-color);
 	padding-left: 20px;
 	font-size: 34px;
+	padding: 24px;
+}
+
+.pizza-card-description, .pizza-card-ingredients{
+	padding-left: 24px;
 }
 
 .add-to-card-button {
@@ -216,7 +220,7 @@ main {
 	align-items: center;
 	text-align: center;
 	font-weight: 600;
-	margin: 10px auto;
+	margin: 20px auto;
 	padding: 16px;
 	color: var(--header-color);
 	font-size: 16px;
@@ -281,6 +285,13 @@ main {
 /* Pizza page styles */
 .pizza-page-details {
 	font-size: 20px;
+}
+
+.pizza-weight{
+	font-family: var(--description-font);
+	color: var(--all-text-color);
+	text-align: center;
+	font-size: 16px;
 }
 
 /* Cart Drawer design */
@@ -367,6 +378,9 @@ th.ant-table-cell {
 	text-align: center;
 	color: var(--header-color);
 	letter-spacing: 4px;
+}
+.ant-col{
+margin-bottom: 0;
 }
 
 .ant-form-item-label,

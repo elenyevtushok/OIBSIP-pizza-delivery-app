@@ -1,9 +1,5 @@
-export interface User{
+export interface User extends CreateUserDTO{
 	_id: string;
-	firstName: string;
-	secondName: string;
-	email: string;
-	phone: string;
 }
 
 export interface CreateUserDTO {

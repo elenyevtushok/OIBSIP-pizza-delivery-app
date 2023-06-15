@@ -15,6 +15,12 @@ export interface OrderItem {
 	size: string;
 }
 
+export interface UpdateOrder{
+	userId?: string;
+	addressId?: string;
+	paymentMethod?: string;
+}
+
 export interface CreateOrderDTO {
 	orderItem: CreateOrderItemDTO;
 }
