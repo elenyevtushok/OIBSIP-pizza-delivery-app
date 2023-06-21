@@ -1,8 +1,8 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 import { RootState } from '../../app/store';
-import { Order, UpdateOrder } from './dto/Order';
-import { getCurrentOrderApi, updateOrderApi } from '../../api/order-api';
+import { Order, CompleteCheckoutDTO } from './dto/Order';
+import { getCurrentOrderApi, completeCheckoutApi } from '../../api/order-api';
 
 
 const orderAdapter = createEntityAdapter<Order>({
@@ -23,6 +23,9 @@ export const orderSlice = createSlice({
 					orderAdapter.setOne(state, action.payload)
 				}
 			})
+			.addCase(completeCheckout.fulfilled, (state, action) => {
+				orderAdapter.removeAll(state)
+			})
 	},
 })
 
@@ -33,10 +36,10 @@ export const loadCurrentOrder = createAsyncThunk.withTypes<{ state: RootState }>
 	}
 );
 
-export const updateOrder = createAsyncThunk(
-	'order/updateOrder',
-	async ({ orderId, updateOrder }: { orderId: string, updateOrder: UpdateOrder }) => {
-		return await updateOrderApi(orderId, updateOrder);
+export const completeCheckout = createAsyncThunk(
+	'order/completeCheckout',
+	async ({ orderId, body: completeCheckoutRequest }: { orderId: string, body: CompleteCheckoutDTO }) => {
+		return await completeCheckoutApi(orderId, completeCheckoutRequest);
 	}
 );
 

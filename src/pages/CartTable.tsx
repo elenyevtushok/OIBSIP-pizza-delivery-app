@@ -28,7 +28,8 @@ const CartTable: React.FC<CartTableProps> = ({ order }) => {
 		const pizza = pizzas.find(pizza => pizza._id == item.productId);
 		return {
 			orderItem: item,
-			pizza: pizza
+			pizza: pizza,
+			key: `${item.productId}-${item.size}`
 		};
 	})
 
@@ -93,12 +94,13 @@ const CartTable: React.FC<CartTableProps> = ({ order }) => {
 			render: (amount: number, record: OrderItemData) => {
 				return (
 					<>
-						<p><InputNumber
+						<div>
+							<InputNumber
 							min={0}
 							defaultValue={record.orderItem.amount}
 							onStep={(value, info) => onStepHandler(record, info.type)}
 						/>
-						</p>
+						</div>
 						{/* <button className = "delete-from-cart-button" onClick={() => deleteOrderItem(record)}>
 							<DeleteOutlined />
 						</button> */}

@@ -15,10 +15,10 @@ export interface OrderItem {
 	size: string;
 }
 
-export interface UpdateOrder{
+export interface CompleteCheckoutDTO {
 	userId?: string;
 	addressId?: string;
-	paymentMethod?: string;
+	paymentMethod?: string | null;
 }
 
 export interface CreateOrderDTO {

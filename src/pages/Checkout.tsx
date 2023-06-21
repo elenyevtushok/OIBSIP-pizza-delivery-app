@@ -5,6 +5,11 @@ import { createAddress } from '../features/address/addressSlice'
 import { CreateAddressDTO } from '../features/address/dto/Address'
 import { CreateUserDTO } from '../features/user/dto/User'
 import { createUser } from '../features/user/userSlice'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { completeCheckout } from '../features/order/orderSlice';
+import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 
 interface CheckoutForm extends CreateAddressDTO, CreateUserDTO {
@@ -15,10 +20,13 @@ export const Checkout = () => {
 	const currentOrder = useAppSelector(selectCurrentOrder);
 	const dispatch = useAppDispatch();
 	const [checkoutForm] = Form.useForm();
-	// const [currentUser, setCurrentUser] = useState<User | null>(null);
-	
+	const navigate = useNavigate();
 
-	const onFinishCheckoutForm = (formValues: CheckoutForm) => {
+	const [createdUserId, setCreatedUserId] = useState<string | null>(null);
+	const [createdAddressId, setCreatedAddressId] = useState<string | null>(null);
+	const [paymentMethod, setPaymentMethod] = useState<string | null>(null);
+
+	const onFinishCheckoutForm = async (formValues: CheckoutForm) => {
 		console.log('Success:', formValues);
 		const createAddressDto: CreateAddressDTO = {
 			city: formValues.city,
@@ -27,40 +35,56 @@ export const Checkout = () => {
 			apartment: formValues.apartment
 		};
 
-		dispatch(createAddress(createAddressDto));
+		const addressAction = await dispatch(createAddress(createAddressDto));
+		if (createAddress.fulfilled.match(addressAction)) {
+			const addressId = addressAction.payload._id;
+			setCreatedAddressId(addressId);
+		}
 
 		const createUserDTO: CreateUserDTO = {
 			firstName: formValues.firstName,
 			secondName: formValues.secondName,
 			email: formValues.email,
-			phone: formValues.phone
+			phone: formValues.phone,
 		};
-		dispatch(createUser(createUserDTO));
-
-		// const user = useAppSelector(selectUser);
-
-		// const updatedOrder: UpdateOrder = {
-		// 	userId: user.user?._id,
-		// };
-
-
+		const userAction = await dispatch(createUser(createUserDTO));
+		if (createUser.fulfilled.match(userAction)) {
+			const userId = userAction.payload._id;
+			setCreatedUserId(userId);
+		}
 	};
+
+	useEffect(() => {
+		if (createdUserId && createdAddressId && currentOrder) {
+			const request = {
+				orderId: currentOrder._id,
+				body: {
+					userId: createdUserId,
+					addressId: createdAddressId,
+					paymentMethod: paymentMethod
+				}
+			};
+			dispatch(completeCheckout(request));
+			navigate('/finishorder')
+		}
+	}, [createdUserId, createdAddressId, currentOrder, paymentMethod, dispatch, navigate]);
+
+
 	return (
 		<div className='checkout-page'>
 			<h2 className='checkout-header'>Checkout Order</h2>
-			
-				<Form
-					className='checkout-form address-form'
-					form={checkoutForm}
-					name="address"
-					labelCol={{ span: 12 }}
-					wrapperCol={{ span: 24 }}
-					// style={{ maxWidth: 600, margin: "auto" }}
-					layout="vertical"
-					initialValues={{ remember: true }}
-					onFinish={onFinishCheckoutForm}
-					autoComplete="off"
-				>
+
+			<Form
+				className='checkout-form address-form'
+				form={checkoutForm}
+				name="address"
+				labelCol={{ span: 12 }}
+				wrapperCol={{ span: 24 }}
+				layout="vertical"
+				initialValues={{ remember: true }}
+				onFinish={onFinishCheckoutForm}
+				autoComplete="off"
+			>
 				<Row gutter={[16, 24]}>
 					<Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }} lg={{ span: 12 }} xl={{ span: 12 }}>
 						{/* <AddressForm /> */}
@@ -97,13 +121,6 @@ export const Checkout = () => {
 						>
 							<Input />
 						</Form.Item>
-
-						<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-							{/* <Button type="primary" htmlType="submit">
-								Submit
-							</Button> */}
-						</Form.Item>
-
 					</Col>
 					<Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }} lg={{ span: 12 }} xl={{ span: 12 }}>
 						<h4 className='content-title'>User Information</h4>
@@ -142,7 +159,7 @@ export const Checkout = () => {
 					<Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }} lg={{ span: 12 }} xl={{ span: 12 }}>
 						<div className='checkout-payment-method-form'>
 							<h4 className='content-title'>Choose payment method</h4>
-							<Radio.Group defaultValue={"cash"}>
+							<Radio.Group defaultValue={"cash"} onChange={(e) => setPaymentMethod(e.target.value)}>
 								<Space direction="vertical">
 									<Radio value="cash">Cash to courier</Radio>
 									<Radio value="creditCardCourier">Credit card to courier</Radio>
@@ -155,17 +172,13 @@ export const Checkout = () => {
 							<h4 className='content-title'>
 								<span>Total price:</span>&nbsp;<span>€{currentOrder?.totalPrice}</span>
 							</h4>
-							{/* <Link to={'/finishorder'}> */}
-							<button type="submit" className="add-to-card-button checkout-button" onClick={() => {
-								onFinishCheckoutForm;
-							}}>Finish the order</button>
-							{/* </Link> */}
-
+							
+							<button type="submit" className="add-to-card-button checkout-button" onClick={() => onFinishCheckoutForm(checkoutForm.getFieldsValue())}>Finish the order</button>
 						</div>
 					</Col>
 				</Row>
-				</Form>
-			
+			</Form>
+
 		</div>
 	)
 }
