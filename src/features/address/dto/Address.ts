@@ -1,6 +1,5 @@
 export interface Address extends CreateAddressDTO{
 	_id: string;
-
 }
 
 export interface CreateAddressDTO{

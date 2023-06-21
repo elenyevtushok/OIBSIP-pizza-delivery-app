@@ -1,19 +1,10 @@
-import React, { useState } from 'react'
-import { AddressForm } from '../forms/AddressForm'
-import { Button, Col, Form, Input, Radio, Row, Space } from 'antd'
-import { UserForm } from '../forms/UserForm'
-import PaymentMethodForm from '../forms/PaymentMethodForm'
-import { selectCurrentOrder, updateOrder } from '../features/order/orderSlice'
+import { Col, Form, Input, Radio, Row, Space } from 'antd'
+import { selectCurrentOrder } from '../features/order/orderSlice'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
-import { Link } from 'react-router-dom'
 import { createAddress } from '../features/address/addressSlice'
-import { Address, CreateAddressDTO } from '../features/address/dto/Address'
-import { CreateUserDTO, User } from '../features/user/dto/User'
-import { createUser, selectUser } from '../features/user/userSlice'
-import { UpdateOrder } from '../features/order/dto/Order'
-import { getOnePizzaApi } from '../api/pizzas-api'
-import { createUserApi } from '../api/user-api'
-import { useQuery } from '@tanstack/react-query';
+import { CreateAddressDTO } from '../features/address/dto/Address'
+import { CreateUserDTO } from '../features/user/dto/User'
+import { createUser } from '../features/user/userSlice'
 
 
 interface CheckoutForm extends CreateAddressDTO, CreateUserDTO {

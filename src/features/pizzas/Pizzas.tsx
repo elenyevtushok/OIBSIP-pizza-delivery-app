@@ -18,10 +18,10 @@ export const Pizzas = () => {
 	console.log(pizzas)
 
 
-	const handleLoadMore = () => {
-		setPage(prevPage => prevPage + 1)
-		dispatch(loadMorePizzas(page + 1))
-	}
+	// const handleLoadMore = () => {
+	// 	setPage(prevPage => prevPage + 1)
+	// 	dispatch(loadMorePizzas(page + 1))
+	// }
 
 
 	return (
