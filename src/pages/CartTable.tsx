@@ -99,6 +99,7 @@ const CartTable: React.FC<CartTableProps> = ({ order }) => {
 							min={0}
 							defaultValue={record.orderItem.amount}
 							onStep={(value, info) => onStepHandler(record, info.type)}
+								data-test={`input-cart-pizza-quantity-${record.pizza?.name.replace(/ /g, "-") }`}
 						/>
 						</div>
 						{/* <button className = "delete-from-cart-button" onClick={() => deleteOrderItem(record)}>
@@ -133,8 +134,8 @@ const CartTable: React.FC<CartTableProps> = ({ order }) => {
 		<>
 			<Table columns={columns} dataSource={orderItemsData} pagination={false} />
 			<div className="cart-total">
-				<p className="cart-total-amount">Total pizzas: {order.totalAmount}</p>
-				<p className="cart-total-price">Total price: € {order.totalPrice}</p>
+				<p className="cart-total-amount" data-test="cart-total-amount">Total pizzas: {order.totalAmount}</p>
+				<p className="cart-total-price" data-test="cart-total-price">Total price: € {order.totalPrice}</p>
 			</div>
 			
 		</>

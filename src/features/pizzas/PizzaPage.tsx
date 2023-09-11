@@ -57,7 +57,7 @@ export const PizzaPage = () => {
 	return (
 			<main>
 				<div className='content-title'>
-					<h1>{`Try amazing ${currentPizza?.name} pizza`}</h1>
+				<h1 data-test={`pizza-page-header-${currentPizza?.name.replace(/ /g, "-") }`}>{`Try amazing ${currentPizza?.name} pizza`}</h1>
 				</div>
 				<Row>
 					<Col xs={{ span: 16 }} sm={{ span: 12 }} md={{ span: 12 }} lg={{ span: 12 }} xl={{ span: 12 }}>
@@ -86,7 +86,7 @@ export const PizzaPage = () => {
 								<p className='pizza-weight'>Approximate weight: {getCurrentPizzaWeight()}g</p>
 								<h4 className='content-title'>Price: €{getCurrentPizzaPrice()}</h4>
 							</div>
-							<button onClick={() => addToCartHandler()} className="add-to-card-button">Add to cart
+						<button onClick={() => addToCartHandler()} className="add-to-card-button" data-test= "add-to-cart-button">Add to cart
 							</button>
 						</div>
 					</Col>

@@ -5,26 +5,38 @@ import { Order, CompleteCheckoutDTO } from './dto/Order';
 import { getCurrentOrderApi, completeCheckoutApi } from '../../api/order-api';
 
 
-const orderAdapter = createEntityAdapter<Order>({
-	selectId: order => order._id,
-})
+interface OrderState {
+	currentOrder: Order | null;
+}
+
+const initialState: OrderState = {
+	currentOrder: null,
+};
+
 
 export const orderSlice = createSlice({
 	name: 'order',
-	initialState: orderAdapter.getInitialState,
+	initialState,
 	reducers: {
-		setOrder: orderAdapter.setOne,
+		setOrder: (state, action) => {
+			state.currentOrder = action.payload;
+		},
 	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(loadCurrentOrder.fulfilled, (state, action) => {
-				console.log(`setOrder:  ${JSON.stringify(action.payload)}`)
+				console.log(`setOrder:  ${JSON.stringify(action.payload)}`);
+				if (action.payload != undefined) {
+					console.log("Set current order = null");
+					state.currentOrder = null;
+					return;
+				}
 				if (action.payload != null) {
-					orderAdapter.setOne(state, action.payload)
+					state.currentOrder = action.payload;
 				}
 			})
 			.addCase(completeCheckout.fulfilled, (state, action) => {
-				orderAdapter.removeAll(state)
+				state.currentOrder = null;
 			})
 	},
 })
@@ -43,16 +55,7 @@ export const completeCheckout = createAsyncThunk(
 	}
 );
 
-export const {
-	selectById: selectOrderById,
-	selectAll: selectOrder
-} = orderAdapter.getSelectors((state: RootState) => state.order)
-
-export const selectCurrentOrder = (state: RootState) => {
-	const orders = selectOrder(state);
-	console.log(`selectCurrentOrder:  ${JSON.stringify(orders)}`)
-	return orders.find(order => order?._id != null);
-};
+export const selectCurrentOrder = (state: RootState) => state.order.currentOrder;
 
 export const { setOrder } = orderSlice.actions
 export default orderSlice.reducer

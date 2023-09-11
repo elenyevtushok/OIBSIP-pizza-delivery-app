@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export const PizzaItem = ({ pizza }: { pizza: Pizza }) => {
 
 	return (
-		<div className="pizza-card" data-testid='course-card'>
+		<div className="pizza-card">
 			<div className="pizza-card-top">
 				<img className="pizza-card-image" src={pizza.imageUrls[0]} alt={pizza.name} />
 				<h3 className="pizza-card-title">{pizza.name}</h3>
@@ -19,7 +19,7 @@ export const PizzaItem = ({ pizza }: { pizza: Pizza }) => {
 					</ul>
 				</div>
 			</div>
-			<Link to={`../pizza/${pizza._id}`} className="add-to-card-button">I want it
+			<Link to={`../pizza/${pizza._id}`} className="add-to-card-button" data-test={`open-pizza-options-button-${pizza.name.replace(/ /g, "-") }`}>I want it
 			</Link>
 		</div>
 	)

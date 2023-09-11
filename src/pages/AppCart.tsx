@@ -23,15 +23,19 @@ export const AppCart = () => {
 
 	return (
 		<div>
+			<span data-test="cart-navbar-icon">
 			<Badge
 				count={order?.totalAmount}
 			>
-				<ShoppingCartOutlined
-					onClick={() => {
-						setCartDrawerOpen(true);
-					}}
-					className="ant-menu-item ant-menu-submenu-title app-cart-icon" />
+					<ShoppingCartOutlined
+						onClick={() => {
+							setCartDrawerOpen(true);
+						}}
+						className="ant-menu-item ant-menu-submenu-title app-cart-icon"
+						
+					/>
 			</Badge>
+			</span>
 			{order &&
 				<Drawer
 					open={cartDrawerOpen}
@@ -40,6 +44,7 @@ export const AppCart = () => {
 					}}
 					title="Your Cart"
 					contentWrapperStyle={{ width: 800 }}
+					data-test="cart-drawer"
 				>
 					<CartTable order={order} />
 					<Link to={"/checkout"}><button className='add-to-card-button' onClick={() => {
