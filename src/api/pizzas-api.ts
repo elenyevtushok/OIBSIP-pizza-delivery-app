@@ -1,7 +1,7 @@
-import { Pizza, PageRequest } from "../features/pizzas/dto/Pizza";
+import { Pizza, PageRequest, Page } from "../features/pizzas/dto/Pizza";
 import { axiosClient } from "./axios-client";
 
-export const getPizzasApi = async (pageRequest: PageRequest): Promise<Pizza[]> => {
+export const getPizzasApi = async (pageRequest: PageRequest): Promise<Page<Pizza>> => {
 	return await axiosClient.post("/pizza/search", {
 		"query": {
 		},
@@ -13,7 +13,8 @@ export const getPizzasApi = async (pageRequest: PageRequest): Promise<Pizza[]> =
 			}
 		}
 	})
-		.then(response => response.data.docs)
+		.then(response => response.data)
+		
 }
 
 export const getOnePizzaApi = async (id: string): Promise<Pizza> => {

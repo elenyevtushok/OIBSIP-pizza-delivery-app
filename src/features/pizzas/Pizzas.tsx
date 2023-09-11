@@ -1,11 +1,12 @@
 import { Row, Col } from 'antd';
 import { PizzaItem } from './PizzaItem';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { loadMorePizzas, selectPizza } from './pizzasSlice';
+import { selectHasMorePages, loadMorePizzas, selectPizza } from './pizzasSlice';
 import { store } from '../../app/store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const FIRST_PAGE = 1;
+
 
 store.dispatch(loadMorePizzas(FIRST_PAGE))
 
@@ -13,6 +14,7 @@ export const Pizzas = () => {
 	const [page, setPage] = useState(FIRST_PAGE);
 	const pizzas = useAppSelector(selectPizza);
 	const dispatch = useAppDispatch();
+	const hasMorePages = useAppSelector(selectHasMorePages)
 
 	console.log(page)
 	console.log(pizzas)
@@ -31,7 +33,7 @@ export const Pizzas = () => {
 				<p>Swipe to chose and order</p>
 			</div>
 			{
-				(pizzas.length > 0) &&
+				(pizzas?.length > 0) &&
 				(
 					<>
 						<Row gutter={[24, 24]}>{pizzas?.map(pizza => {
@@ -42,8 +44,8 @@ export const Pizzas = () => {
 							)
 						})}
 						</Row>
-						{(pizzas.length < 8) &&
-						<button className="load-more-button" data-testid="load-more-button" onClick={() => handleLoadMore()}>Show me more</button>}
+						{hasMorePages &&
+							<button className="load-more-button" data-testid="load-more-button" onClick={() => handleLoadMore()}>Show me more</button>}
 					</>
 				)
 			}
