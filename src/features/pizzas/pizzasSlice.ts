@@ -7,7 +7,7 @@ const pizzasAdapter = createEntityAdapter<Pizza>({
 	selectId: pizza => pizza._id,
 })
 
-const DEFAULT_PAGE_SIZE = 10;
+const DEFAULT_PAGE_SIZE = 6;
 
 export const loadMorePizzas = createAsyncThunk.withTypes<{ state: RootState }>()(
 	'pizzas/loadPage',

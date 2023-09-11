@@ -18,10 +18,10 @@ export const Pizzas = () => {
 	console.log(pizzas)
 
 
-	// const handleLoadMore = () => {
-	// 	setPage(prevPage => prevPage + 1)
-	// 	dispatch(loadMorePizzas(page + 1))
-	// }
+	const handleLoadMore = () => {
+		setPage(prevPage => prevPage + 1)
+		dispatch(loadMorePizzas(page + 1))
+	}
 
 
 	return (
@@ -42,7 +42,8 @@ export const Pizzas = () => {
 							)
 						})}
 						</Row>
-						{/* <button className="load-more-button" data-testid="load-more-button" onClick={() => handleLoadMore()}>Show me more</button> */}
+						{(pizzas.length < 8) &&
+						<button className="load-more-button" data-testid="load-more-button" onClick={() => handleLoadMore()}>Show me more</button>}
 					</>
 				)
 			}
